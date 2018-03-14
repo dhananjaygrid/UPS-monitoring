@@ -1,0 +1,99 @@
+<html>
+<style>
+table, th, td{
+ border: 1px black solid;
+ background-color: #f1f1c1;
+}
+</style>
+<body>
+
+
+  <form method="post" action="/">
+   <label for = "ip"></label><br>
+   ip:<br>
+   <input type= "text" name = "ip"><br>
+   <label for = "version"></label>
+   version:<br>
+   <input type= "text" name = "version">
+   <label for = "community"></label><br>
+   community:<br>
+   <input type= "text" name = "community"><br>
+   <input type = "submit" value = "submit">  
+
+
+   </form>
+
+       <table>
+	<caption style="color:red";>Status of UPSes</caption>
+	<thead>
+	<tr>
+		<td> ID </td>
+                <td> IP </td>
+		<td> VERSION </td>
+		<td> COMMUNITY </td>
+		<td> PROBE TIME </td>
+		<td> REMANINIG TIME </td>
+		<td> NEXT-PROBE </td>	
+		<td> OUTPUT POWER </td>
+		<td> OUTLET STATUS </td>
+	</tr>
+	</thead>
+
+   <tbody>
+    <h1>UPSes</h1>
+     <tr>
+    {% for entry in entries %}
+      <td>{{entry.id}}</td>
+      <td>{{entry.ip}}</td>
+      <td>{{entry.version}}</td>
+      <td>{{entry.community}}</td>
+      <td>{{entry.time_of_probe}}</td>
+      <td>{{entry.rem_time}}</td>
+      <td>{{entry.nex_probe}}</td>
+      <td>{{entry.out_power}}</td>
+      <td>{{entry.out_stat}}</td>    
+      <td><form method = "post" action="/edit" style="display: inline">
+      <input type = "hidden" value = "{{entry.id}}" name = "oldid">
+      <input type = "hidden" value = "{{entry.ip}}" name = "oldip"> 
+      IP:<input type = "text" value = "{{entry.ip}}" name = "newip">
+        
+      
+      <input type = "hidden" value = "{{entry.id}}" name = "oldid"> 
+      <input type = "hidden" value = "{{entry.version}}" name = "oldversion">
+      VERSION: <input type = "text" value = "{{entry.version}}" name = "newversion">
+
+       <input type = "hidden" value = "{{entry.id}}" name = "oldid">
+     <input type = "hidden" value = "{{entry.community}}" name = "oldcommunity">
+      COMMUNITY:<input type = "text" value = "{{entry.community}}" name = "newcommunity">
+
+
+
+
+
+
+      <input type = "submit" value = "edit">
+       </form> </td>
+<!--
+       <td><form method = "post" action="/edit" style="display: inline"> 
+       <input type = "hidden" value = "{{entry.community}}" name = "oldcommunity">
+      COMMUNITY:<input type = "text" value = "{{entry.community}}" name = "newcommunity">
+      
+       <td><form method = "post" action="/edit" style="display: inline">
+      <input type = "hidden" value = "{{entry.ID}}" name = "change">
+      <input type = "submit" value = "edit">
+      -->
+
+      
+      </form></td>
+      <td><form method = "post" action="/delete">
+      <input type = "hidden" value = "{{entry.ip}}" name = "ip">
+      <input type = "submit" value = "delete"> </td>
+      </form>
+      </tr>
+    {% endfor %}
+
+    </tbody>
+
+</body>
+
+</html>
